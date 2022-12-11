@@ -23,6 +23,7 @@ html {
 
 #countdown {
     text-align: center;
+    max-height: 60vh;
 }
 
 #timeSlider {
@@ -30,8 +31,11 @@ html {
 }
 
 .alarmImage {
+    margin: auto;
+    margin-bottom: 0;
     animation: shake 0.5s;
-    max-width: 100%;
+    max-width: 80%;
+    max-height: 80%;
     animation-iteration-count: infinite;
 }
 
