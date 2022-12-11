@@ -48,9 +48,28 @@ class Timer {
 let timer = new Timer(5, 0, (0, 0, 0));
 
 let gui = new dat.GUI();
-gui.add(timer, "seconds", 0, 3600, 5);
+gui.add(timer, "seconds", 0, 3600, 5).onChange(initalCountdown);
 gui.add(timer, "start").name("Start / pause");
 gui.add(params, "clock").name("Vis klokke");
+
+function initalCountdown() {
+  const currentSeconds = Math.floor(timer.seconds % 60);
+  const currentMinutes = Math.floor(timer.seconds / 60);
+  if (currentMinutes < 10) {
+    countdownTime = "0" + currentMinutes;
+  } else {
+    countdownTime = currentMinutes;
+  }
+
+  countdownTime += ":";
+
+  if (currentSeconds < 10) {
+    countdownTime += "0" + currentSeconds;
+  } else {
+    countdownTime += currentSeconds;
+  }
+  displayCountdown.innerHTML = countdownTime;
+}
 
 function updateTime() {
   time = new Date();
@@ -69,7 +88,14 @@ function updateTime() {
     //   String(Math.min(percentDone * 1.2, 100)) +
     //   "%);'></div>";
     //   "<div id='animatedFigure'><img src='assets/train.png' class='train' /></div> ";
-    document.querySelector(".train").style.left = String(percentDone) + "%";
+    document.querySelector(".train").style.left =
+      "min(" +
+      String(
+        window.innerWidth - document.querySelector(".train").clientWidth - 3
+      ) +
+      "px, " +
+      String(percentDone) +
+      "%)";
 
     countdownTime = new Date(
       Math.floor((timer.alarmTime - time - 3600 * 1000) / 1000) * 1000
@@ -77,13 +103,13 @@ function updateTime() {
       minute: "2-digit",
       second: "2-digit",
     });
-    if (Math.floor(timer.seconds) == 0) {
+    if (Math.floor(timer.seconds) == 0 || Math.round(timer.seconds) == 0) {
       timer.soundAlarm();
       clearInterval(updater);
       updater = setInterval(updateTime, 500);
       document.querySelector(".train").style.left =
         String(
-          window.innerWidth - document.querySelector(".train").clientWidth
+          window.innerWidth - document.querySelector(".train").clientWidth - 3
         ) + "px";
     }
     // } else {

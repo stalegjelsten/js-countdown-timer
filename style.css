@@ -6,7 +6,7 @@ html {
 
 #centerDiv {
     font-family: "Open Sans", serif;
-    font-size: 170px;
+    font-size: min(15vw, 30vh);
     font-weight: 600;
     font-variant-numeric: tabular-nums;
     font-feature-settings: "tnum";
