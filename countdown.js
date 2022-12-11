@@ -3,10 +3,10 @@ let time = new Date();
 let displayCurrentTime = document.querySelector("#currentTime");
 let displayCountdown = document.querySelector("#countdown");
 let timeSlider = document.querySelector("#timeSliderContainer");
-let countdownTime = "05:00";
+let countdownTime = "";
 let percentDone = 0;
 let params = {
-  clock: false,
+  clock: true,
   alarmFile: "assets/sleigh_bells.mp3",
   backgroundFile: "assets/christmas.jpg",
   alarmImage: "assets/nisse.png",
