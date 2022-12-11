@@ -1,0 +1,73 @@
+html {
+    background: url(assets/christmas.jpg) no-repeat center fixed;
+    background-size: cover;
+}
+
+
+#centerDiv {
+    font-family: "Open Sans", serif;
+    font-size: 170px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum";
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 94%;
+}
+
+#currentTime {
+    text-align: center;
+}
+
+#countdown {
+    text-align: center;
+}
+
+#timeSlider {
+    height: 5%;
+}
+
+.alarmImage {
+    animation: shake 0.5s;
+    max-width: 100%;
+    animation-iteration-count: infinite;
+}
+
+#animatedFigure {
+    bottom: 8%;
+    height: 4.7%;
+    border-bottom: 2px solid #333;
+}
+
+.train {
+    position: absolute;
+    max-height: 5%;
+    left: 0%;
+    animation: smallScale 0.05s;
+}
+
+@keyframes shake {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    50% {
+        transform: scale(130%) translate(-5px, 5px) rotate(30deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+@keyframes smallScale {
+    0% {
+        transform: scale(100%);
+    }
+
+    100% {
+        transform: scale(130%);
+    }
+}
