@@ -1,5 +1,9 @@
+:root {
+    --bgimage: url(assets/christmas.jpg)
+}
+
 html {
-    background: url(assets/christmas.jpg) no-repeat center fixed;
+    background: var(--bgimage) no-repeat center fixed;
     background-size: cover;
 }
 

@@ -7,10 +7,14 @@ let countdownTime = "";
 let percentDone = 0;
 let params = {
   clock: true,
-  alarmFile: "assets/sleigh_bells.mp3",
-  backgroundFile: "assets/christmas.jpg",
-  alarmImage: "assets/nisse.png",
+  alarmFile: "assets/gong.waw",
+  backgroundFile: "assets/ski.jpg",
+  alarmImage: "assets/alarm_clock.png",
 };
+
+// set background image
+let root = document.querySelector(":root");
+root.style.setProperty("--bgimage", "url(" + params.backgroundFile + ")");
 
 class Timer {
   constructor(minutes, seconds, color) {
@@ -35,7 +39,8 @@ class Timer {
 
   soundAlarm() {
     this.alarmStarted = true;
-    countdownTime = "<img src='assets/nisse.png' class='alarmImage' />";
+    countdownTime =
+      "<img src='" + params.alarmImage + "' class='alarmImage' />";
     this.alarmSound.play();
     this.stop();
   }
