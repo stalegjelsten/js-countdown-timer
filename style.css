@@ -5,6 +5,7 @@
 html {
     background: var(--bgimage) no-repeat center fixed;
     background-size: cover;
+    color: #fff;
 }
 
 
