@@ -8,7 +8,7 @@ let percentDone = 0;
 let params = {
   clock: true,
   alarmFile: "assets/gong.waw",
-  backgroundFile: "assets/ski.jpg",
+  backgroundFile: "assets/giphy.gif",
   alarmImage: "assets/alarm_clock.png",
 };
 
