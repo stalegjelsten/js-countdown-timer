@@ -8,7 +8,7 @@ let percentDone = 0;
 let params = {
   clock: true,
   alarmFile: "assets/gong.waw",
-  backgroundFile: "assets/fireplace.gif",
+  backgroundFile: "assets/valg.png",
   alarmImage: "assets/alarm_clock.png",
 };
 
@@ -26,12 +26,12 @@ const randomBackground = async () => {
   return results.urls["full"];
 };
 // set background image
-randomBackground().then((url) => {
+/* randomBackground().then((url) => {
   params.backgroundFile = url;
   root.style.setProperty("--bgimage", "url(" + params.backgroundFile + ")");
 });
 let root = document.querySelector(":root");
-root.style.setProperty("--bgimage", "url(" + params.backgroundFile + ")");
+root.style.setProperty("--bgimage", "url(" + params.backgroundFile + ")"); */
 
 class Timer {
   constructor(minutes, seconds, color) {
