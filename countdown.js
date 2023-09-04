@@ -12,7 +12,24 @@ let params = {
   alarmImage: "assets/alarm_clock.png",
 };
 
+const randomBackground = async () => {
+  const response = await fetch(
+    "https://api.unsplash.com/photos/random?query=wallpaper-beautiful-landscape-dark&orientation=landscape",
+    {
+      headers: {
+        Authorization: "Client-ID gIfD5KFdWq_6IIQnlmliM0ye3N9NIiWL-yKlLw5Uud0",
+      },
+    }
+  );
+  const results = await response.json();
+  console.log(results);
+  return results.urls["full"];
+};
 // set background image
+randomBackground().then((url) => {
+  params.backgroundFile = url;
+  root.style.setProperty("--bgimage", "url(" + params.backgroundFile + ")");
+});
 let root = document.querySelector(":root");
 root.style.setProperty("--bgimage", "url(" + params.backgroundFile + ")");
 
