@@ -7,9 +7,12 @@ let countdownTime = "";
 let percentDone = 0;
 let params = {
   clock: true,
+  randomImage: false,
   alarmFile: "assets/gong.waw",
   backgroundFile: "assets/valg.png",
   alarmImage: "assets/alarm_clock.png",
+  whiteForeground: false,
+
 };
 
 const randomBackground = async () => {
@@ -25,13 +28,6 @@ const randomBackground = async () => {
   console.log(results);
   return results.urls["full"];
 };
-// set background image
-/* randomBackground().then((url) => {
-  params.backgroundFile = url;
-  root.style.setProperty("--bgimage", "url(" + params.backgroundFile + ")");
-});
-let root = document.querySelector(":root");
-root.style.setProperty("--bgimage", "url(" + params.backgroundFile + ")"); */
 
 class Timer {
   constructor(minutes, seconds, color) {
@@ -73,6 +69,39 @@ let gui = new dat.GUI();
 gui.add(timer, "seconds", 0, 3600, 5).onChange(initalCountdown);
 gui.add(timer, "start").name("Start / pause");
 gui.add(params, "clock").name("Vis klokke");
+gui.add(params, "backgroundFile", ["assets/bg.jpg", "assets/christmas.jpg", "assets/valg.png", "assets/ski.jpg", "assets/fireplace.gif"]).onChange(
+  function () {
+    let root = document.querySelector(":root");
+    root.style.setProperty("--bgimage", "url(" + params.backgroundFile + ")");
+  }
+);
+gui.add(params, "randomImage").name("Tilfeldig bilde").onChange(
+  function () {
+    // set background image when clicking toggle switch
+    if (params.randomImage) {
+      randomBackground().then((url) => {
+        params.backgroundFile = url;
+        root.style.setProperty("--bgimage", "url(" + params.backgroundFile + ")");
+      });
+      let root = document.querySelector(":root");
+      root.style.setProperty("--bgimage", "url(" + params.backgroundFile + ")");
+      root.style.setProperty("--col", "#fff");
+
+    } else {
+    }
+  }
+);
+gui.add(params, "whiteForeground").onChange(
+  function () {
+    if (params.whiteForeground) {
+      let root = document.querySelector(":root");
+      root.style.setProperty("--col", "#fff");
+    } else {
+      let root = document.querySelector(":root");
+      root.style.setProperty("--col", "#000");
+    }
+  }
+);
 
 function initalCountdown() {
   const currentSeconds = Math.floor(timer.seconds % 60);

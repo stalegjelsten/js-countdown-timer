@@ -1,11 +1,12 @@
 :root {
-    --bgimage: url(assets/valg.png)
+    --bgimage: url(assets/valg.png);
+    --col: #000;
 }
 
 html {
     background: var(--bgimage) no-repeat center fixed;
     background-size: cover;
-    color: #000;
+    color: var(--col);
 }
 
 
