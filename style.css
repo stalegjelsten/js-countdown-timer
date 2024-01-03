@@ -1,6 +1,6 @@
 :root {
   --bgimage: url(assets/ski.jpg);
-  --col: #000;
+  --col: #fff;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@900&display=swap');
@@ -27,6 +27,19 @@ html {
 #vits {
   font-size: min(2vw, 5vh);
   text-align: center;
+
+}
+
+#vits blockquote {
+  background: 0 0;
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+}
+
+#svar {
+  background: 0 0;
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
 }
 
 #currentTime {
@@ -96,7 +109,7 @@ button {
   border: 4px solid #ff4742;
   background: 0 0;
   backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(1px);
+  -webkit-backdrop-filter: blur(5px);
   color: var(--col);
   /* color: #ff4742; */
   padding: 15pt 30pt 15pt 30pt;
