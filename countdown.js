@@ -8,11 +8,12 @@ let percentDone = 0;
 let params = {
   clock: true,
   randomImage: false,
-  alarmFile: "assets/gong.waw",
-  backgroundFile: "assets/ski.jpg",
+  alarmFile: "assets/gong.wav",
+  backgroundFile: "assets/bg.jpg",
   alarmImage: "assets/alarm_clock.png",
   whiteForeground: false,
 };
+
 
 const randomBackground = async () => {
   const response = await fetch(
@@ -27,6 +28,17 @@ const randomBackground = async () => {
   console.log(results);
   return results.urls["full"];
 };
+
+const setBgColor = () => {
+  if (params.whiteForeground) {
+    let root = document.querySelector(":root");
+    root.style.setProperty("--col", "#fff");
+  } else {
+    let root = document.querySelector(":root");
+    root.style.setProperty("--col", "#000");
+  }
+}
+
 
 class Timer {
   constructor(minutes, seconds, color) {
@@ -100,15 +112,7 @@ gui
     } else {
     }
   });
-gui.add(params, "whiteForeground").onChange(function () {
-  if (params.whiteForeground) {
-    let root = document.querySelector(":root");
-    root.style.setProperty("--col", "#fff");
-  } else {
-    let root = document.querySelector(":root");
-    root.style.setProperty("--col", "#000");
-  }
-});
+gui.add(params, "whiteForeground").onChange(setBgColor());
 
 function initalCountdown() {
   const currentSeconds = Math.floor(timer.seconds % 60);
@@ -196,3 +200,6 @@ function updateTime() {
   }
   // displayTime.innerHTML = time.getHours() + ":" + time.getMinutes() + ":" + time.getSeconds();
 }
+
+document.querySelector(":root").style.setProperty("--bgimage", "url(" + params.backgroundFile + ")");
+setBgColor()
