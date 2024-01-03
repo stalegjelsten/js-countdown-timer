@@ -9,7 +9,7 @@ let params = {
   clock: true,
   randomImage: false,
   alarmFile: "assets/gong.waw",
-  backgroundFile: "assets/autumn_leaves_freepik.jpg",
+  backgroundFile: "assets/ski.jpg",
   alarmImage: "assets/alarm_clock.png",
   whiteForeground: false,
 };
