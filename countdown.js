@@ -12,6 +12,7 @@ let params = {
   backgroundFile: "assets/bg.jpg",
   alarmImage: "assets/alarm_clock.png",
   whiteForeground: false,
+  message: ""
 };
 
 
@@ -36,6 +37,13 @@ const setBgColor = () => {
   } else {
     let root = document.querySelector(":root");
     root.style.setProperty("--col", "#000");
+  }
+}
+
+const updateMessage = () => {
+  if (params.message.length > 0) {
+    document.getElementById("joke").innerHTML = params.message;
+    document.getElementById("answerBtn").style.display = "none";
   }
 }
 
@@ -112,7 +120,20 @@ gui
     } else {
     }
   });
-gui.add(params, "whiteForeground").onChange(setBgColor());
+gui.add(params, "whiteForeground").onChange(() => {
+  if (params.whiteForeground) {
+    let root = document.querySelector(":root");
+    root.style.setProperty("--col", "#fff");
+  } else {
+    let root = document.querySelector(":root");
+    root.style.setProperty("--col", "#000");
+  }
+});
+gui.add(params, "message").onChange(() => {
+  if (params.message.length > 0) {
+    document.getElementById("joke").innerHTML = params.message;
+  }
+});
 
 function initalCountdown() {
   const currentSeconds = Math.floor(timer.seconds % 60);

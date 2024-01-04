@@ -17,9 +17,10 @@
     <div id="vits">
       <blockquote id="joke"></blockquote>
       <p id="svar"></p>
-      <button onclick="(visSvar())" id="showAnswerBtn">Vis svar</button>
-      <button onclick="(randJoke())">Gi meg en ny!!</button>
+      <button onclick="(visSvar())" id="answerBtn">Vis svar</button>
+      <button onclick="(randJoke())" id="jokeBtn">Gi meg en ny!!</button>
     </div>
+    <div id="timerButton" style="margin-top:2rem"><button onclick="timer.start()">⏯️</button></div>
   </div>
   <div id="timeSliderContainer">
     <div id="animatedFigure">
@@ -27,8 +28,8 @@
     </div>
   </div>
 
-  <script src="countdown.js"></script>
   <script src="https://stalegjelsten.github.io/tilfeldig-vits/script.js"></script>
+  <script src="countdown.js"></script>
 </body>
 
 </html>
