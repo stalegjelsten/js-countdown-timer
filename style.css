@@ -24,7 +24,6 @@ html {
 #vits {
   font-size: min(2vw, 5vh);
   text-align: center;
-
 }
 
 #vits blockquote {
@@ -99,7 +98,6 @@ html {
   }
 }
 
-
 button {
   outline: 0;
   cursor: pointer;
@@ -110,23 +108,24 @@ button {
   -webkit-backdrop-filter: blur(5px);
   color: var(--col);
   /* color: #ff4742; */
-  padding: 0.5em 1em 0.5em 1em;
-  box-shadow: rgba(0, 0, 0, 0.07) 0px 2px 4px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1.5px 0px;
+  padding: 0.3em 1em 0.3em 1em;
+  box-shadow: rgba(0, 0, 0, 0.07) 0px 2px 4px 0px,
+    rgba(0, 0, 0, 0.05) 0px 1px 1.5px 0px;
   font-weight: 800;
   font-size: min(2vw, 5vh);
   display: inline-block;
-  font-family: 'Open Sans', Arial;
+  font-family: "Open Sans", Arial;
   transition: all 0.1s ease-in-out;
 }
 
-#timerButton button {
+#timerButton {
   background-color: #ff48429b;
+  padding: 0.2em 2em 0.2em 2em;
 }
 
-#timerButton button:hover {
+#timerButton:hover {
   background-color: #ff4742;
   transform: scale(1.05);
-
 }
 
 button:hover {

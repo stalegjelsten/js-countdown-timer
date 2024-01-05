@@ -4,7 +4,7 @@ let displayCurrentTime = document.querySelector("#currentTime");
 let displayCountdown = document.querySelector("#countdown");
 let timeSlider = document.querySelector("#timeSliderContainer");
 let countdownTime = "";
-let randomImage = { url: "", description: "", city: "", country: "" }
+let randomImage = { url: "", description: "", city: "", country: "" };
 let percentDone = 0;
 let params = {
   clock: true,
@@ -14,9 +14,8 @@ let params = {
   alarmImage: "assets/alarm_clock.png",
   whiteForeground: false,
   vits: true,
-  message: ""
+  message: "",
 };
-
 
 const randomBackground = async () => {
   const response = await fetch(
@@ -29,7 +28,12 @@ const randomBackground = async () => {
   );
   const results = await response.json();
   console.log(results);
-  return { url: results.urls["full"], description: results.description, city: results.location.city, country: results.location.country }
+  return {
+    url: results.urls["full"],
+    description: results.description,
+    city: results.location.city,
+    country: results.location.country,
+  };
   // return results.urls["full"];
 };
 
@@ -41,15 +45,14 @@ const setBgColor = () => {
     let root = document.querySelector(":root");
     root.style.setProperty("--col", "#000");
   }
-}
+};
 
 const updateMessage = () => {
   if (params.message.length > 0) {
     document.getElementById("joke").innerHTML = params.message;
     document.getElementById("answerBtn").style.display = "none";
   }
-}
-
+};
 
 class Timer {
   constructor(minutes, seconds, color) {
@@ -87,7 +90,10 @@ class Timer {
 
 let timer = new Timer(5, 0, (0, 0, 0));
 let gui = new dat.GUI();
-gui.add(timer, "seconds", 0, 3600, 15).name("Sekunder").onChange(initalCountdown);
+gui
+  .add(timer, "seconds", 0, 3600, 15)
+  .name("Sekunder")
+  .onChange(initalCountdown);
 gui.add(timer, "start").name("Start / pause");
 gui.add(params, "clock").name("Vis klokke");
 gui
@@ -115,7 +121,11 @@ gui
           "--bgimage",
           "url(" + params.backgroundFile + ")"
         );
-        console.log(unsplashObject.description, unsplashObject.city, unsplashObject.country)
+        console.log(
+          unsplashObject.description,
+          unsplashObject.city,
+          unsplashObject.country
+        );
       });
       let root = document.querySelector(":root");
       root.style.setProperty("--bgimage", "url(" + params.backgroundFile + ")");
@@ -123,22 +133,28 @@ gui
     } else {
     }
   });
-gui.add(params, "whiteForeground").name("Hvit tekst").onChange(() => {
-  if (params.whiteForeground) {
-    let root = document.querySelector(":root");
-    root.style.setProperty("--col", "#fff");
-  } else {
-    let root = document.querySelector(":root");
-    root.style.setProperty("--col", "#000");
-  }
-});
-gui.add(params, "vits").name("Vis vits/melding").onChange(() => {
-  if (params.vits === true) {
-    document.getElementById("vits").style.display = "block"
-  } else {
-    document.getElementById("vits").style.display = "none"
-  }
-})
+gui
+  .add(params, "whiteForeground")
+  .name("Hvit tekst")
+  .onChange(() => {
+    if (params.whiteForeground) {
+      let root = document.querySelector(":root");
+      root.style.setProperty("--col", "#fff");
+    } else {
+      let root = document.querySelector(":root");
+      root.style.setProperty("--col", "#000");
+    }
+  });
+gui
+  .add(params, "vits")
+  .name("Vis vits/melding")
+  .onChange(() => {
+    if (params.vits === true) {
+      document.getElementById("vits").style.display = "block";
+    } else {
+      document.getElementById("vits").style.display = "none";
+    }
+  });
 gui.add(params, "message").onChange(() => {
   if (params.message.length > 0) {
     document.getElementById("joke").innerHTML = params.message;
@@ -232,5 +248,7 @@ function updateTime() {
   // displayTime.innerHTML = time.getHours() + ":" + time.getMinutes() + ":" + time.getSeconds();
 }
 
-document.querySelector(":root").style.setProperty("--bgimage", "url(" + params.backgroundFile + ")");
-setBgColor()
+document
+  .querySelector(":root")
+  .style.setProperty("--bgimage", "url(" + params.backgroundFile + ")");
+setBgColor();
