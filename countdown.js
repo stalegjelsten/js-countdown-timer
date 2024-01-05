@@ -4,6 +4,7 @@ let displayCurrentTime = document.querySelector("#currentTime");
 let displayCountdown = document.querySelector("#countdown");
 let timeSlider = document.querySelector("#timeSliderContainer");
 let countdownTime = "";
+let randomImage = { url: "", description: "", city: "", country: "" }
 let percentDone = 0;
 let params = {
   clock: true,
@@ -12,6 +13,7 @@ let params = {
   backgroundFile: "assets/bg.jpg",
   alarmImage: "assets/alarm_clock.png",
   whiteForeground: false,
+  vits: true,
   message: ""
 };
 
@@ -27,7 +29,8 @@ const randomBackground = async () => {
   );
   const results = await response.json();
   console.log(results);
-  return results.urls["full"];
+  return { url: results.urls["full"], description: results.description, city: results.location.city, country: results.location.country }
+  // return results.urls["full"];
 };
 
 const setBgColor = () => {
@@ -83,9 +86,8 @@ class Timer {
 }
 
 let timer = new Timer(5, 0, (0, 0, 0));
-
 let gui = new dat.GUI();
-gui.add(timer, "seconds", 0, 3600, 5).onChange(initalCountdown);
+gui.add(timer, "seconds", 0, 3600, 15).name("Sekunder").onChange(initalCountdown);
 gui.add(timer, "start").name("Start / pause");
 gui.add(params, "clock").name("Vis klokke");
 gui
@@ -107,12 +109,13 @@ gui
   .onChange(function () {
     // set background image when clicking toggle switch
     if (params.randomImage) {
-      randomBackground().then((url) => {
-        params.backgroundFile = url;
+      randomBackground().then((unsplashObject) => {
+        params.backgroundFile = unsplashObject.url;
         root.style.setProperty(
           "--bgimage",
           "url(" + params.backgroundFile + ")"
         );
+        console.log(unsplashObject.description, unsplashObject.city, unsplashObject.country)
       });
       let root = document.querySelector(":root");
       root.style.setProperty("--bgimage", "url(" + params.backgroundFile + ")");
@@ -120,7 +123,7 @@ gui
     } else {
     }
   });
-gui.add(params, "whiteForeground").onChange(() => {
+gui.add(params, "whiteForeground").name("Hvit tekst").onChange(() => {
   if (params.whiteForeground) {
     let root = document.querySelector(":root");
     root.style.setProperty("--col", "#fff");
@@ -129,6 +132,13 @@ gui.add(params, "whiteForeground").onChange(() => {
     root.style.setProperty("--col", "#000");
   }
 });
+gui.add(params, "vits").name("Vis vits/melding").onChange(() => {
+  if (params.vits === true) {
+    document.getElementById("vits").style.display = "block"
+  } else {
+    document.getElementById("vits").style.display = "none"
+  }
+})
 gui.add(params, "message").onChange(() => {
   if (params.message.length > 0) {
     document.getElementById("joke").innerHTML = params.message;

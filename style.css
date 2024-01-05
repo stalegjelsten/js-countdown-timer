@@ -34,6 +34,7 @@ html {
 }
 
 #svar {
+  font-style: italic;
   background: 0 0;
   backdrop-filter: blur(3px);
   -webkit-backdrop-filter: blur(3px);
