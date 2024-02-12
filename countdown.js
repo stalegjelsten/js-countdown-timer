@@ -4,7 +4,15 @@ let displayCurrentTime = document.querySelector("#currentTime");
 let displayCountdown = document.querySelector("#countdown");
 let timeSlider = document.querySelector("#timeSliderContainer");
 let countdownTime = "";
-let randomImage = { url: "", description: "", city: "", country: "" };
+let randomImage = {
+  url: "",
+  description: "",
+  city: "",
+  country: "",
+  photographer: "",
+  photographerLink: "",
+  unsplashLink: "",
+};
 let percentDone = 0;
 let params = {
   clock: true,
@@ -28,12 +36,14 @@ const randomBackground = async () => {
   );
   const results = await response.json();
   console.log(results);
-  const photographer = [results.user.first_name, results.user.last_name]
+  const photographer =
+    [results.user.first_name, results.user.last_name]
       .filter((x) => typeof x === "string" && x.length > 0)
-      .join(" ").length > 0 ? [results.user.first_name, results.user.last_name]
-      .filter((x) => typeof x === "string" && x.length > 0)
-      .join(" ") : results.user.username
-
+      .join(" ").length > 0
+      ? [results.user.first_name, results.user.last_name]
+          .filter((x) => typeof x === "string" && x.length > 0)
+          .join(" ")
+      : results.user.username;
 
   return {
     url: results.urls["full"],
@@ -145,8 +155,14 @@ gui
         );
         let descDiv = document.getElementById("imageDescription");
         const photographerInformation =
-          "Bilde " + "<a href='" + randomImage.photographerLink + "'>" + 
-            randomImage.photographer  +
+          "<span title='" +
+          randomImage.description +
+          "'>" +
+          "Bilde</span> " +
+          "<a href='" +
+          randomImage.photographerLink +
+          "'>" +
+          randomImage.photographer +
           "</a> / <a href='" +
           randomImage.unsplashLink +
           "'>Unsplash</a>";
