@@ -24,17 +24,29 @@ const randomBackground = async () => {
       headers: {
         Authorization: "Client-ID gIfD5KFdWq_6IIQnlmliM0ye3N9NIiWL-yKlLw5Uud0",
       },
-    }
+    },
   );
   const results = await response.json();
   console.log(results);
+  const photographer = [results.user.first_name, results.user.last_name]
+      .filter((x) => typeof x === "string" && x.length > 0)
+      .join(" ").length > 0 ? [results.user.first_name, results.user.last_name]
+      .filter((x) => typeof x === "string" && x.length > 0)
+      .join(" ") : results.user.username
+
+
   return {
     url: results.urls["full"],
-    description: results.description,
+    description:
+      results.description == null
+        ? results.alt_description
+        : results.description,
     city: results.location.city,
     country: results.location.country,
+    photographer: photographer,
+    photographerLink: results.user.links.self,
+    unsplashLink: results.links.html,
   };
-  // return results.urls["full"];
 };
 
 const setBgColor = () => {
@@ -70,9 +82,10 @@ class Timer {
     this.initialTime = this.seconds;
     this.startTime = new Date();
     this.alarmTime = new Date(
-      Math.floor((new Date().getTime() + this.seconds * 1000) / 1000) * 1000
+      Math.floor((new Date().getTime() + this.seconds * 1000) / 1000) * 1000,
     );
     this.alarmStarted = false;
+    //document.querySelector("#imageDescription").style.visibility = "hidden";
   }
 
   soundAlarm() {
@@ -81,6 +94,14 @@ class Timer {
       "<img src='" + params.alarmImage + "' class='alarmImage' />";
     this.alarmSound.play();
     this.stop();
+    //document.querySelector("#imageDescription").style.visibility = "visible";
+    if (params.randomImage) {
+      let descDiv = document.getElementById("imageDescription");
+      const locationInformation = [randomImage.city, randomImage.country]
+        .filter((x) => typeof x === "string" && x.length > 0)
+        .join(", ");
+      descDiv.innerHTML += ". " + locationInformation;
+    }
   }
 
   stop() {
@@ -112,19 +133,28 @@ gui
 gui
   .add(params, "randomImage")
   .name("Tilfeldig bilde")
-  .onChange(function () {
+  .onChange(() => {
     // set background image when clicking toggle switch
     if (params.randomImage) {
       randomBackground().then((unsplashObject) => {
         params.backgroundFile = unsplashObject.url;
+        randomImage = unsplashObject;
         root.style.setProperty(
           "--bgimage",
-          "url(" + params.backgroundFile + ")"
+          "url(" + params.backgroundFile + ")",
         );
+        let descDiv = document.getElementById("imageDescription");
+        const photographerInformation =
+          "Bilde " + "<a href='" + randomImage.photographerLink + "'>" + 
+            randomImage.photographer  +
+          "</a> / <a href='" +
+          randomImage.unsplashLink +
+          "'>Unsplash</a>";
+        descDiv.innerHTML = photographerInformation;
         console.log(
           unsplashObject.description,
           unsplashObject.city,
-          unsplashObject.country
+          unsplashObject.country,
         );
       });
       let root = document.querySelector(":root");
@@ -200,14 +230,14 @@ function updateTime() {
     document.querySelector(".train").style.left =
       "min(" +
       String(
-        window.innerWidth - document.querySelector(".train").clientWidth - 3
+        window.innerWidth - document.querySelector(".train").clientWidth - 3,
       ) +
       "px, " +
       String(percentDone) +
       "%)";
 
     countdownTime = new Date(
-      Math.floor((timer.alarmTime - time - 3600 * 1000) / 1000) * 1000
+      Math.floor((timer.alarmTime - time - 3600 * 1000) / 1000) * 1000,
     ).toLocaleTimeString([], {
       minute: "2-digit",
       second: "2-digit",
@@ -218,7 +248,7 @@ function updateTime() {
       updater = setInterval(updateTime, 500);
       document.querySelector(".train").style.left =
         String(
-          window.innerWidth - document.querySelector(".train").clientWidth - 3
+          window.innerWidth - document.querySelector(".train").clientWidth - 3,
         ) + "px";
     }
     // } else {

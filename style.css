@@ -6,10 +6,14 @@ html {
   background: var(--bgimage) no-repeat center fixed;
   background-size: cover;
   color: var(--col);
+  font-family: "Open Sans", serif;
+}
+
+a {
+  color: var(--col);
 }
 
 #centerDiv {
-  font-family: "Open Sans", serif;
   font-size: min(12vw, 20vh);
   font-weight: 600;
   font-variant-numeric: tabular-nums;
@@ -18,7 +22,7 @@ html {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 94%;
+  height: 91%;
 }
 
 #vits {
@@ -126,6 +130,11 @@ button {
 #timerButton:hover {
   background-color: #ff4742;
   transform: scale(1.05);
+}
+
+#imageDescription {
+  display: block;
+  text-align: right;
 }
 
 button:hover {
